@@ -1,4 +1,4 @@
-package in.gagan.servlet.authentication;
+package in.gagan.servlet;
 
 import java.io.IOException;
 
@@ -62,6 +62,11 @@ public class LoginServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/Login.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

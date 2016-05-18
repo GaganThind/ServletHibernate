@@ -16,14 +16,14 @@ UserName:<input type="text" name="userName">
 <br>
 Password:<input type="password"name="password">
 <br>
-<input type="submit" name="Login">
+<input type="submit" value="Login">
 <br>
 <c:if test="${!empty message}">
     <c:out value="${message}"/>
 </c:if>
 </form>
-<form action="signup" method="post">
-<input type="submit">
+<form action="signup" method="get">
+<input type="submit" value="SignUp">
 </form>
 </body>
 </html>
