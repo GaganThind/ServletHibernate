@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.gagan.bo.LoginBO;
 import in.gagan.common.constants.ApplicationConstants;
+import in.gagan.common.util.CommonUtil;
 
 /**
  * Servlet implementation class LoginServlet
@@ -37,15 +38,19 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		
+		boolean ifNotNull = CommonUtil.checkIfNotNull(new String("userName,password"));
 		boolean result=false;
 		RequestDispatcher dispatcher=null;
+		LoginBO loginBO =null;
+		String password =null;
+		String userName = null;
 		
-		if(!userName.equals("")&& !password.equals("")){
-			LoginBO loginBO = new LoginBO();
+		if(ifNotNull){
+			loginBO = new LoginBO();
+			userName = request.getParameter("userName");
+			password = request.getParameter("password");
 			result = loginBO.Authenticate(userName,password);
 			if(result){
 			dispatcher = request.getRequestDispatcher("jsp/Success.jsp");
