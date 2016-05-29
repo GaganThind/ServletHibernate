@@ -24,39 +24,40 @@ import org.apache.log4j.Logger;
 import in.gagan.common.constants.ApplicationConstants;
 import in.gagan.common.util.CommonUtil;
 import in.gagan.common.util.LoggingUtil;
-import in.gagan.hibernate.dao.LoginDAO;
+import in.gagan.hibernate.dao.SignUpDAO;
 
-public class LoginBO {
+public class SignUpBO {
 	private static Logger logger = LoggingUtil.getLoggerInsance();
 
-	public boolean Authenticate(HttpServletRequest request) {
+	public boolean Register(HttpServletRequest request) {
+		String userName = null;
+		String firstName = null;
+		String lastName = null;
+		String dob = null;
+		String phoneNumber = null;
 		String tmpPassword = null;
 		String salt = null;
-		String userName = null;
-		String generatedHash = null;
-		String hashFromDatabase = null;
-		LoginDAO loginDAO = null;
-		Map<String, String> passwordAndSalt = null;
+		String passwordHash = null;
+
+		SignUpDAO signUpDAO = new SignUpDAO();
+		Map<String, String> passwordMap = null;
 
 		userName = request.getParameter("userName");
+		firstName = request.getParameter("firstName");
+		lastName = request.getParameter("lastName");
+		dob = request.getParameter("dob");
+		phoneNumber = request.getParameter("phoneNumber");
 		tmpPassword = request.getParameter("password");
 		try {
-			loginDAO = new LoginDAO();
-			passwordAndSalt = loginDAO.getUserPasswordAndSalt(userName);
-			salt = passwordAndSalt.get(ApplicationConstants.SALTS);
-			hashFromDatabase = passwordAndSalt.get(ApplicationConstants.HASHES);
-
-			generatedHash = CommonUtil.convertToHashForPasswordAuthentication(salt, tmpPassword);
-			if (generatedHash.equals(hashFromDatabase)) {
-				return true;
-			} else {
-				return false;
-			}
+			passwordMap = CommonUtil.convertToHash(tmpPassword);
+			salt = passwordMap.get(ApplicationConstants.SALTS);
+			passwordHash = passwordMap.get(ApplicationConstants.HASHES);
+			return signUpDAO.Register(userName, firstName, lastName, dob, phoneNumber, passwordHash, salt);
 		} catch (Exception e) {
-			logger.error("LoginBO.Authenticate error: " + e);
+			logger.error("SignUpBO.Register error: " + e);
 		} finally {
-			CommonUtil.makeVariablesNull(new Object[] { tmpPassword, userName, loginDAO, passwordAndSalt, generatedHash,
-					hashFromDatabase, salt });
+			CommonUtil.makeVariablesNull(new Object[] { userName, firstName, lastName, dob, phoneNumber, tmpPassword,
+					salt, passwordMap, passwordHash });
 		}
 		return false;
 	}

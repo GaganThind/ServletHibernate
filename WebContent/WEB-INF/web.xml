@@ -7,4 +7,9 @@
   <session-config>
     <session-timeout>1</session-timeout>
   </session-config>
+  <listener>
+  <listener-class>
+  in.gagan.servlet.listener.ServletContextApplication
+  </listener-class>
+  </listener>
 </web-app>

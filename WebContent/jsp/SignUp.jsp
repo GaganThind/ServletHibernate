@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-2.2.3.js"></script>
 <script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-ui.js"></script>
-<script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.validate.js"></script>
+<script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.validate.min.js"></script>
 <script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/SignUp.js"></script>
+<script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/additional-methods.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <title>Register</title>
 </head>
@@ -19,9 +21,13 @@ First Name <input type="text" name="firstName">
 <br>Date of Birth <input type="text" name="dob" id="datepicker">
 <br>Phone Number <input type="text" name="phoneNumber">
 <br>Email <input type="text" name="email">
-<br>Password <input type="password" name="password">
+<br>Password <input type="password" name="password" id="passwordId">
 <br>Confirm Password <input type="password" name="confirmPassword">
 <br><input type="submit" value="Register">
+&nbsp;&nbsp;&nbsp;
+<c:if test="${!empty message}">
+    <c:out value="${message}"/>
+</c:if>
 </form>
 <noscript>
     <div id="noscript" style="position: absolute; top: 0; left: 0; background-color: #FFF; z-index: 999; height: 100%; width: 100%; text-align: center; padding-top: 50px;">

@@ -7,32 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-2.2.3.js"></script>
 <script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.validate.js"></script>
-<script type="text/javascript">
-$.ready(function(){
-	$("#login-Form").validate({
-		rules:{
-			userName:{
-				required:true
-			},
-			password:{
-				required:true
-			}	
-		},
-		message:{
-			userName:{
-				required:"Please enter a username"
-			},
-			password:{
-				required:"Please enter a password"
-			}
-		},
-		submitHandler: function(form) {
-	          form.submit();
-	      }
-	});
-	
-});
-</script>
+<script language="javascript" type="text/javascript" src="<%=request.getContextPath() %>/js/Login.js"></script>
 <title>Login</title>
 </head>
 <body>

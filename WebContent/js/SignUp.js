@@ -5,19 +5,26 @@ $(function() {
       yearRange: "1950:2050"
     });
   });
+
+$.validator.addMethod( "strongPassword", function( value, element ) {
+	return this.optional( element ) || value.length>=8 && /\d/.test( value ) && /[a-z]/i.test(value);
+}, "Your password must be atleast 8 characters long and should contain atleast a Digit" );
   
 //form validation rules
 $().ready(function(){
   $("#registration-Form").validate({
       rules: {
           firstName: {
-        	  required:true
+        	  required:true,
+        	  lettersonly: true
           },
           lastName: {
-        	  required:true
+        	  required:true,
+        	  lettersonly: true
           },
           userName: {
-        	  required:true
+        	  required:true,
+        	  alphanumeric: true
           },
           dob:{
         	  required:true
@@ -33,12 +40,11 @@ $().ready(function(){
           },
           password: {
               required: true,
-              minlength: 8
+              strongPassword: true
           },
           confirmPassword: {
         	  required: true,
-              minlength: 8,
-        	  equalTo: "#password"
+        	  equalTo: "#passwordId"
           }
           //agree: "required"
       },
@@ -50,7 +56,8 @@ $().ready(function(){
         	  required: "Please enter your lastname"
     	  },
           userName: {
-        	  required: "Please enter your username"
+        	  required: "Please enter your username",
+        	  alphanumeric: "Please enter only Letters, numbers and underscore for username"
     	  },
           dob: {
         	  required: "Please enter your date of birth",
@@ -62,12 +69,10 @@ $().ready(function(){
           },
           email: "Please enter a valid email address",
           password: {
-              required: "Please provide a password",
-              minlength: "Your password must be at least 8 characters long"
+              required: "Please provide a password"
           },
           confirmPassword: {
               required: "Please provide a password",
-              minlength: "Your password must be at least 8 characters long",
               equalTo: "Passwords don't match"
           },
           
