@@ -39,3 +39,4 @@ Thumbs.db
 # Useless .settings
 ######################
 .settings
+/build
