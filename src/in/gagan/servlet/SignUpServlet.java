@@ -74,17 +74,17 @@ public class SignUpServlet extends HttpServlet {
 						dispatcher = request.getRequestDispatcher("jsp/Login.jsp");
 					} else {
 						request.setAttribute(ApplicationConstants.JSPMESSAGE, ApplicationConstants.REGISTRATIONERROR);
-						dispatcher = request.getRequestDispatcher("jsp/SignUp.jsp");
+						dispatcher = request.getRequestDispatcher("SignUp");
 					}
 				} else {
 					request.setAttribute(ApplicationConstants.JSPMESSAGE,
 							ApplicationConstants.PASSWORDANDCONFIRMPASSWORDNOTMATCH);
-					dispatcher = request.getRequestDispatcher("jsp/SignUp.jsp");
+					dispatcher = request.getRequestDispatcher("SignUp");
 				}
 				dispatcher.forward(request, response);
 			} else {
 				request.setAttribute(ApplicationConstants.JSPMESSAGE, ApplicationConstants.SIGNUPNULLVALUES);
-				dispatcher = request.getRequestDispatcher("jsp/SignUp.jsp");
+				dispatcher = request.getRequestDispatcher("SignUp");
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {

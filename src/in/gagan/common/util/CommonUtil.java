@@ -87,8 +87,6 @@ public class CommonUtil {
 			salt = new String(Base64.encode(tmpSalt));
 			hashedMap.put(ApplicationConstants.SALTS, salt);
 			hashedMap.put(ApplicationConstants.HASHES, hash);
-			// Text.Encoding.UTF8.GetString(tmpHash);
-			System.err.println(hash);
 			return hashedMap;
 		} catch (Exception e) {
 			logger.error("CommonUtil.convert hashing failed " + e);

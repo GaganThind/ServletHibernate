@@ -61,4 +61,9 @@ public class SignUpBO {
 		}
 		return false;
 	}
+
+	public String getUserName(String userName) {
+		SignUpDAO signupDAO = null;
+		return signupDAO.checkIfUsernameExists(userName);
+	}
 }

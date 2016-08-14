@@ -26,4 +26,6 @@ public class ApplicationConstants {
 	public static final String HASHES = "hash";
 	public static final String REGISTRATIONSUCCESSFUL = "Registration Successfull";
 	public static final String REGISTRATIONERROR = "There was an error while registration!! Please try again.";
+	public static final String TRUE = "true";
+	public static final String FALSE = "false";
 }

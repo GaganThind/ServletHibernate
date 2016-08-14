@@ -44,12 +44,12 @@ public class LoginDAO {
 			query.setString(0, userName);
 			passwordAndSaltToCheck = (List<UserLogin>)query.list();
 			Iterator itr = passwordAndSaltToCheck.iterator();
-			while(itr.hasNext()){
+			if(itr.hasNext()){
 				tmpData = (Object[]) itr.next();
-			}
-			auth = new HashMap<String,String>();
-			auth.put(ApplicationConstants.HASHES, tmpData[0].toString());
-			auth.put(ApplicationConstants.SALTS, tmpData[1].toString());
+				auth = new HashMap<String,String>();
+				auth.put(ApplicationConstants.HASHES, tmpData[0].toString());
+				auth.put(ApplicationConstants.SALTS, tmpData[1].toString());
+			}			
 			HibernateUtil.commitTransaction(session);
 			return auth;
 		}catch(Exception e){

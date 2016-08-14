@@ -15,9 +15,14 @@
  */
 package in.gagan.hibernate.dao;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
+import in.gagan.common.constants.ApplicationConstants;
 import in.gagan.common.util.CommonUtil;
 import in.gagan.common.util.HibernateUtil;
 import in.gagan.common.util.LoggingUtil;
@@ -69,5 +74,29 @@ public class SignUpDAO {
 					salt, userDetails, userLogin, userName });
 		}
 		return result;
+	}
+
+	public String checkIfUsernameExists(String userName) {
+		Session session = null;
+		List<String> usernameFromDatabase = null;
+		try {
+			session = HibernateUtil.openSession();
+			session.beginTransaction();
+			Query query = session.getNamedQuery("UserLogin.ifUsernameExists");
+			query.setString(0, userName);
+			usernameFromDatabase = query.list();
+			Iterator itr = usernameFromDatabase.iterator();
+			if (itr.hasNext()) {
+				return ApplicationConstants.TRUE;
+			}
+			HibernateUtil.commitTransaction(session);
+		} catch (Exception e) {
+			logger.error("SignUpDAO.checkIfUsernameExists error " + e);
+			HibernateUtil.rollBackTransaction(session);
+		} finally {
+			HibernateUtil.closeSession(session);
+			CommonUtil.makeVariablesNull(new Object[] { userName, usernameFromDatabase });
+		}
+		return ApplicationConstants.FALSE;
 	}
 }

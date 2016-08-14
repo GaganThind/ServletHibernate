@@ -21,12 +21,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name="USER_LOGIN")
-@NamedQuery(name="UserLogin.authenticateByName",query="select password , salt from UserLogin where userName = ?")
+@NamedQueries({
+	@NamedQuery(name="UserLogin.authenticateByName",query="select password , salt from UserLogin where userName = ?"),
+	@NamedQuery(name="UserLogin.ifUsernameExists",query="select userName from UserLogin where userName = ?")
+})
 public class UserLogin {
 	@Id
 	@Column(name="USER_ID")
