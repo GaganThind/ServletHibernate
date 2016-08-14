@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import in.gagan.common.constants.ApplicationConstants;
 import in.gagan.common.util.CommonUtil;
 import in.gagan.common.util.LoggingUtil;
-import in.gagan.hibernate.dao.LoginDAOImpl;
+import in.gagan.hibernate.dao.LoginDAOImpl; 
 
 public class LoginBO {
 	private static Logger logger = LoggingUtil.getLoggerInsance();
