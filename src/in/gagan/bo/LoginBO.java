@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import in.gagan.common.constants.ApplicationConstants;
 import in.gagan.common.util.CommonUtil;
 import in.gagan.common.util.LoggingUtil;
-import in.gagan.hibernate.dao.LoginDAO;
+import in.gagan.hibernate.dao.LoginDAOImpl;
 
 public class LoginBO {
 	private static Logger logger = LoggingUtil.getLoggerInsance();
@@ -35,14 +35,14 @@ public class LoginBO {
 		String userName = null;
 		String generatedHash = null;
 		String hashFromDatabase = null;
-		LoginDAO loginDAO = null;
+		LoginDAOImpl loginDAOImpl = null;
 		Map<String, String> passwordAndSalt = null;
 
 		userName = request.getParameter("userName");
 		tmpPassword = request.getParameter("password");
 		try {
-			loginDAO = new LoginDAO();
-			passwordAndSalt = loginDAO.getUserPasswordAndSalt(userName);
+			loginDAOImpl = new LoginDAOImpl();
+			passwordAndSalt = loginDAOImpl.getUserPasswordAndSalt(userName);
 			salt = passwordAndSalt.get(ApplicationConstants.SALTS);
 			hashFromDatabase = passwordAndSalt.get(ApplicationConstants.HASHES);
 
@@ -55,7 +55,7 @@ public class LoginBO {
 		} catch (Exception e) {
 			logger.error("LoginBO.Authenticate error: " + e);
 		} finally {
-			CommonUtil.makeVariablesNull(new Object[] { tmpPassword, userName, loginDAO, passwordAndSalt, generatedHash,
+			CommonUtil.makeVariablesNull(new Object[] { tmpPassword, userName, loginDAOImpl, passwordAndSalt, generatedHash,
 					hashFromDatabase, salt });
 		}
 		return false;

@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import in.gagan.common.constants.ApplicationConstants;
 import in.gagan.common.util.CommonUtil;
 import in.gagan.common.util.LoggingUtil;
-import in.gagan.hibernate.dao.SignUpDAO;
+import in.gagan.hibernate.dao.SignUpDAOImpl;
 
 public class SignUpBO {
 	private static Logger logger = LoggingUtil.getLoggerInsance();
@@ -39,7 +39,7 @@ public class SignUpBO {
 		String salt = null;
 		String passwordHash = null;
 
-		SignUpDAO signUpDAO = new SignUpDAO();
+		SignUpDAOImpl signUpDAOImpl = new SignUpDAOImpl();
 		Map<String, String> passwordMap = null;
 
 		userName = request.getParameter("userName");
@@ -52,7 +52,7 @@ public class SignUpBO {
 			passwordMap = CommonUtil.convertToHash(tmpPassword);
 			salt = passwordMap.get(ApplicationConstants.SALTS);
 			passwordHash = passwordMap.get(ApplicationConstants.HASHES);
-			return signUpDAO.Register(userName, firstName, lastName, dob, phoneNumber, passwordHash, salt);
+			return signUpDAOImpl.Register(userName, firstName, lastName, dob, phoneNumber, passwordHash, salt);
 		} catch (Exception e) {
 			logger.error("SignUpBO.Register error: " + e);
 		} finally {
@@ -63,7 +63,7 @@ public class SignUpBO {
 	}
 
 	public String getUserName(String userName) {
-		SignUpDAO signupDAO = null;
-		return signupDAO.checkIfUsernameExists(userName);
+		SignUpDAOImpl signUpDAOImpl = new SignUpDAOImpl();
+		return signUpDAOImpl.checkIfUsernameExists(userName);
 	}
 }
